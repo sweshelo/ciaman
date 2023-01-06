@@ -75,10 +75,13 @@ function extract-cia($path){
   ls $BINS_PATH | %{
     $FILE = $_.Name
     if( $FILE -like "*RomFS*" ){
-      . $3DSTOOL -xtf romfs $BINS_PATH/$FILE --romfs-dir $BASE_PATH/$FILE
+      . $3DSTOOL -xvtf romfs $BINS_PATH/$FILE --romfs-dir $BASE_PATH/$FILE
     }
     if( $FILE -like "*ExeFS*" ){
-      . $3DSTOOL -xtfu exefs $BINS_PATH/$FILE --header $BINS_PATH/HeaderExeFS.bin --exefs-dir $BASE_PATH/$FILE
+      . $3DSTOOL -xvtfu exefs $BINS_PATH/$FILE --header $BINS_PATH/HeaderExeFS.bin --exefs-dir $BASE_PATH/$FILE
+    }
+    if( $FILE -like "*DownloadPlay*" -or $FILE -like "*3DSUpdate*"){
+      . $3DSTOOL -xvtf romfs $BINS_PATH/$FILE --romfs-dir $BASE_PATH/$FILE
     }
   }
 }
